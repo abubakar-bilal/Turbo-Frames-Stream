@@ -1,7 +1,6 @@
-<%#= turbo_stream_from "quotes" %>
 <%= turbo_stream_from current_company, "quotes" %>
 
-<main class="container">
+<div class="container">
   <div class="header">
     <h1>Quotes</h1>
     <%= link_to "New quote",
@@ -11,7 +10,11 @@
   </div>
 
   <%= turbo_frame_tag Quote.new %>
-  <%= turbo_frame_tag 'quotes' do %>
+
+  <%= turbo_frame_tag "quotes" do %>
+    <% if @quotes.none? %>
+      <%= render "quotes/empty_state" %>
+    <% end %>
     <%= render @quotes %>
   <% end %>
-</main>
+</div>
